@@ -1,4 +1,4 @@
-Projet réalisé par Harrisson Kobylt, Antoine Lemaitre, Romain Andres.
+Projet réalisé par Harrisson Kobylt, Antoine Lemaitre, Romain Andres. test
 
 Il s'agit d'un jeu de contamination sur grille de 7 par 7 jouable à 2 en 1  versus 1.
 
