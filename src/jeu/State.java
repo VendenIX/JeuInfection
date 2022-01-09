@@ -6,8 +6,8 @@ public class State {
     public char [][] board;
     private char turn;
     private char player;
-    private int nbPionRouge;
-    private int nbPionBleu;
+    public int nbPionRouge;
+    public int nbPionBleu;
 
     /*Construtceur pour initialiser le board */
     public State(){
@@ -31,11 +31,42 @@ public class State {
 
     }
 
+    public char getPlayer(){
+        return this.player;
+    }
+    public char getTurn(){
+        return this.turn;
+    }
+    public void changeTurn(){
+        if (this.turn == 'r'){
+            this.turn = 'b';
+        }
+        else{
+            this.turn = 'r';
+        }
+        
+    }
+    public void increaseNumberPawns(char color){
+        if (color == 'b'){
+            this.nbPionBleu++;
+        }
+        else{
+            this.nbPionRouge++;
+        }
+    }
     public boolean isOver(){
         if ((this.nbPionRouge == 0)|| (this.nbPionBleu == 0)){
             return true;
         }
         return false;
+    }
+
+    public Move getRandomMove(){
+        HashSet<Move> ensembleCoup = this.getMove();
+        for(Move coup: ensembleCoup){
+            return coup;
+        }
+        return null;
     }
 
     public HashSet<Move> getMove(){
@@ -78,8 +109,72 @@ public class State {
         }
     }
 
-    public State play(){
+    public void printBoard(){
+        System.out.println("State's board :");
+        for(int i = 0;i < this.board.length;i++){
+            for(int j = 0;j < this.board[i].length;j++){
+                if(this.board[i][j] == '\0'){
+                    System.out.print('.');
+                }
+                else{
+                    System.out.print(this.board[i][j]);
+                }
+            }
+            System.out.println('\n');
+        }
+    }
+
+    public void infection(int[] cases,char color){
+        /**Toutes les casess adjacentes à cases de couleur color changeront de couleur
+        @params cases : cases à l'origine de l'infection, color : charactère de la couleur infectable
+         */
+        if (color == 'r'){
+            for (int k = -1; k<2;k++){
+                for (int l = -1;l<2;l++){
+                    if ((0<=(cases[0]+k) && (cases[0]+k)<=6) && (0<=(cases[1]+l) && (cases[1]+l)<=6)){
+                        if (this.board[cases[0]+k][cases[1]+l] == color){ /**Si la couleur de l'adversaire est détectée alors on infecte la cases  */
+                            this.board[cases[0]+k][cases[1]+l] = 'b';
+                            this.nbPionBleu ++;
+                            this.nbPionRouge--;
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            for (int k = -1; k<2;k++){
+                for (int l = -1;l<2;l++){
+                    if ((0<=(cases[0]+k) && (cases[0]+k)<=6) && (0<=(cases[1]+l) && (cases[1]+l)<=6)){
+                        if (this.board[cases[0]+k][cases[1]+l] == color){ /**Si la couleur de l'adversaire est détectée alors on infecte la cases  */
+                            this.board[cases[0]+k][cases[1]+l] = 'r';
+                            this.nbPionBleu--;
+                            this.nbPionRouge++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public State play(Move coup){
         State newState = new State(this.nbPionBleu,this.nbPionRouge,this.board.clone(),this.turn,this.player);
+
+        /** Si c'est un saut on retire le pion de sa case */
+        if (coup != null){
+            if (coup.jump){
+                newState.board[coup.start[0]][coup.start[1]]='\0';
+            }
+            newState.board[coup.end[0]][coup.end[1]] = newState.getTurn();
+            newState.increaseNumberPawns(newState.getTurn());
+            if (newState.getTurn() == 'r'){
+                int [] posArrivee = {coup.end[0],coup.end[1]};
+                newState.infection(posArrivee,'b');
+            }
+        }
+
+        newState.changeTurn();
+
+
         return newState;
     }
 
