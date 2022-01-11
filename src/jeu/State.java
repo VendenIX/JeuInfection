@@ -81,7 +81,75 @@ public class State {
         }
         return null;
     }
+//Tester 8 fois avec des if si on peut se déplacer dans la case avec un clonage
+    public void ClonageSearch(HashSet<Move> legalMove,int i , int j)
+    {
+        int[] posDepart={i,j}
+        int[] posArrivee;
+        if(i>=1)
+        {
+            if(j>0)
+            {
+                // on part du postulat que . = case vide
+                if(this.board[i-1][j-1] == '.')
+                {
+                    posArrivee={i-1,j-1};
+                    legalMove.add(new Move(posDepart,posArrivee,false));
+                }
+                if(this.board[][j] == '.')
+                {
 
+                }
+            }
+
+            if(j<6)
+            {
+                if(this.board[][] == '.')
+                {
+
+                }
+                if(this.board[][] == '.')
+                {
+
+                }
+            }
+
+            if(i<6)
+            {
+                if(j>0)
+                {
+                    if(this.board[][] == '.')
+                    {
+    
+                    }
+                    if(this.board[][] == '.')
+                    {
+    
+                    }
+                }
+
+                if(j<6)
+                {
+                    if(this.board[][] == '.')
+                    {
+    
+                    }
+                    if(this.board[][] == '.')
+                    {
+    
+                    }
+
+                }
+            }
+
+        }
+
+    }
+//Tester 8 fois avec des if si on peut se déplacer dans la case avec un saut
+    public void JumpSearch(HashSet<Move> legalMove)
+    {
+
+    }
     public HashSet<Move> getMove(){
         HashSet<Move> legalMove = new HashSet<Move>();
             /*Parcours de toutes les cases du plateau */
@@ -89,17 +157,20 @@ public class State {
                 for(int j = 0;j<7;j++){
                     if (this.board[i][j] == this.turn){
                         /*Parcours des cases autour de la couleur du joueur */
-                        for (int k = -1; k<2;k++){
+                        /*
                             for (int l = -1;l<2;l++){
                                 /* on regarde si les coordonnées existent pour les clonages*/
+                                /*
                                 if ((0<=(i+k) && (i+k)<=6) && (0<=(j+l) && (j+l)<=6)){
                                     if (this.board[i+k][j+l]== '\0'){/*\0 est équivalent au charactère null c'est une case vide du plateau */
+                                    /*
                                         int [] posDepart = {i,j};
                                         int[] posArrivee = {i+k,j+l};
                                         legalMove.add(new Move(posDepart,posArrivee,false));
                                     }
                                 }
                                 /* on regarde si les coordonnées existent pour les sauts*/
+                                /*
                                 if ((0<=(i+k*2) && (i+k*2)<=6) && (0<=(j+l*2) && (j+l*2)<=6)){
                                     if (this.board[i+k*2][j+l*2]=='\0'){
                                         int [] posDepart = {i,j};
@@ -109,6 +180,8 @@ public class State {
                                 }
                             }
                         }
+                        
+                        /**/
                     }
                 }
             }
