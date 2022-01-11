@@ -1,5 +1,6 @@
 package jeu;
 import java.util.HashSet;
+import java.util.Random;
 
 public class State {
 
@@ -47,12 +48,24 @@ public class State {
         
     }
 
+    public char[][] copieTableau(){
+        /**Copie le board de l'etat sans utiliser clone()
+         * @return un tableau 2d identique au board
+         */
+        char[][] resultat = new char[7][7];
+        for(int i = 0;i < this.board.length;i++){
+            for(int j = 0;j < this.board[i].length;j++){
+                resultat[i][j] = this.board[i][j];
+            }
+        }
+        return resultat;
+    }
+
     public boolean sameBoard(char[][] otherBoard ){
-        /**Compare le tableau d'un autre */
+        /**Compare le tableau d'un autre et retourne true si les tableaux sont identiques */
         for(int i = 0;i < this.board.length;i++){
             for(int j = 0;j < this.board[i].length;j++){
                 if (otherBoard[i][j] != this.board[i][j]){
-                    System.out.println(otherBoard[i][j] + this.board[i][j]);
                     return false;
                 } 
             }
@@ -74,14 +87,34 @@ public class State {
         return false;
     }
 
+    public void decreaseNumberPawns(char color){
+        if (color == 'b'){
+            this.nbPionBleu--;
+        }
+        else{
+            this.nbPionRouge--;
+        }
+    }
+
     public Move getRandomMove(){
+        /** Renvoie un coup légal aléatoire */
         HashSet<Move> ensembleCoup = this.getMove();
+        if (ensembleCoup.isEmpty()){
+            return null;
+        }
+        Random rand = new Random();
+        int num = rand.nextInt(ensembleCoup.size());
+        int i = 0;
         for(Move coup: ensembleCoup){
-            return coup;
+
+            if (i == num){
+                return coup;
+            }
+            i++;
         }
         return null;
     }
-//Tester 8 fois avec des if si on peut se déplacer dans la case avec un clonage
+/*//Tester 8 fois avec des if si on peut se déplacer dans la case avec un clonage
     public void ClonageSearch(HashSet<Move> legalMove,int i , int j)
     {
         int[] posDepart={i,j}
@@ -150,6 +183,7 @@ public class State {
     {
 
     }
+    */
     public HashSet<Move> getMove(){
         HashSet<Move> legalMove = new HashSet<Move>();
             /*Parcours de toutes les cases du plateau */
@@ -157,20 +191,17 @@ public class State {
                 for(int j = 0;j<7;j++){
                     if (this.board[i][j] == this.turn){
                         /*Parcours des cases autour de la couleur du joueur */
-                        /*
+                        for (int k = -1; k<2;k++){
                             for (int l = -1;l<2;l++){
                                 /* on regarde si les coordonnées existent pour les clonages*/
-                                /*
                                 if ((0<=(i+k) && (i+k)<=6) && (0<=(j+l) && (j+l)<=6)){
                                     if (this.board[i+k][j+l]== '\0'){/*\0 est équivalent au charactère null c'est une case vide du plateau */
-                                    /*
                                         int [] posDepart = {i,j};
                                         int[] posArrivee = {i+k,j+l};
                                         legalMove.add(new Move(posDepart,posArrivee,false));
                                     }
                                 }
                                 /* on regarde si les coordonnées existent pour les sauts*/
-                                /*
                                 if ((0<=(i+k*2) && (i+k*2)<=6) && (0<=(j+l*2) && (j+l*2)<=6)){
                                     if (this.board[i+k*2][j+l*2]=='\0'){
                                         int [] posDepart = {i,j};
@@ -180,8 +211,6 @@ public class State {
                                 }
                             }
                         }
-                        
-                        /**/
                     }
                 }
             }
@@ -243,12 +272,13 @@ public class State {
     }
 
     public State play(Move coup){
-        State newState = new State(this.nbPionBleu,this.nbPionRouge,this.board.clone(),this.turn,this.player);
+        State newState = new State(this.nbPionBleu,this.nbPionRouge,this.copieTableau(),this.turn,this.player);
 
         /** Si c'est un saut on retire le pion de sa case */
         if (coup != null){
             if (coup.jump){
                 newState.board[coup.start[0]][coup.start[1]]='\0';
+                newState.decreaseNumberPawns(newState.getTurn());
             }
             newState.board[coup.end[0]][coup.end[1]] = newState.getTurn();
             newState.increaseNumberPawns(newState.getTurn());

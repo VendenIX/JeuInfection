@@ -19,6 +19,7 @@ public class Main {
                     etat.printBoard();
                     System.out.println("Is same ");
                     s.printBoard();
+                    System.out.println(s.nbPionBleu +","+ s.nbPionRouge);
                     repetition = true;
                 }
             }
