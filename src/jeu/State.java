@@ -46,6 +46,19 @@ public class State {
         }
         
     }
+
+    public boolean sameBoard(char[][] otherBoard ){
+        /**Compare le tableau d'un autre */
+        for(int i = 0;i < this.board.length;i++){
+            for(int j = 0;j < this.board[i].length;j++){
+                if (otherBoard[i][j] != this.board[i][j]){
+                    System.out.println(otherBoard[i][j] + this.board[i][j]);
+                    return false;
+                } 
+            }
+        }
+        return true;
+    }
     public void increaseNumberPawns(char color){
         if (color == 'b'){
             this.nbPionBleu++;
