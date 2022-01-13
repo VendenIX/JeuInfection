@@ -20,6 +20,7 @@ public class State {
         this.nbPionRouge = 2;
         this.nbPionBleu = 2;
         this.turn = 'b';
+        this.player= 'b';
 
     }
     /*Constructeur pour jouer les coups */
@@ -292,6 +293,18 @@ public class State {
 
 
         return newState;
+    }
+
+    // on veut le score du player
+    public Float getScore()
+    {
+        if(this.player == 'b')
+        {
+            return (float) this.nbPionBleu/(this.nbPionRouge+this.nbPionBleu);
+        }
+        else{
+            return (float) this.nbPionRouge/(this.nbPionBleu+this.nbPionRouge);
+        }
     }
 
 }
