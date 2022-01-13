@@ -1,4 +1,4 @@
-Projet réalisé par Harrisson Kobylt, Antoine Lemaitre, Romain Andres. test
+Projet réalisé par Harrisson Kobylt, Antoine Lemaitre, Romain Andres.
 
 Il s'agit d'un jeu de contamination sur grille de 7 par 7 jouable à 2 en 1  versus 1.
 
@@ -35,3 +35,5 @@ pions de la couleur du joueur actif. Après cela, c’est au joueur suivant de j
 Taper les commandes suivantes dans un cmd: (se placer dans le repertoire où se situe le fichier readMe.txt)
 javac -d bin src/jeu/*.java
 java -cp bin jeu.Main
+
+Ou lancer le script avec sh script.sh
