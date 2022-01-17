@@ -1,5 +1,6 @@
 package jeu;
 import java.util.HashSet;
+import algorithms.*;
 public class Main {
 
     public static void main(String[] args){
@@ -27,4 +28,5 @@ public class Main {
             history.add(s);
         }
         } 
+        
     }

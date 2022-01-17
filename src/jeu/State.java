@@ -287,6 +287,11 @@ public class State {
                 int [] posArrivee = {coup.end[0],coup.end[1]};
                 newState.infection(posArrivee,'b');
             }
+            else
+            {
+                int [] posArrivee = {coup.end[0],coup.end[1]};
+                newState.infection(posArrivee,'r');
+            }
         }
 
         newState.changeTurn();
@@ -296,14 +301,14 @@ public class State {
     }
 
     // on veut le score du player
-    public Float getScore()
+    public Double getScore()
     {
         if(this.player == 'b')
         {
-            return (float) this.nbPionBleu/(this.nbPionRouge+this.nbPionBleu);
+            return (double) this.nbPionBleu/(this.nbPionRouge+this.nbPionBleu);
         }
         else{
-            return (float) this.nbPionRouge/(this.nbPionBleu+this.nbPionRouge);
+            return (double) this.nbPionRouge/(this.nbPionBleu+this.nbPionRouge);
         }
     }
 
