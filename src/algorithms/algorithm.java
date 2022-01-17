@@ -27,14 +27,14 @@ public abstract class Algorithm
         this.depth=depth;
     }
 
-    public Move getBestMove(State etat, int depth)
+    public Move getBestMove(State etat, char player,int depth)
     {
         Move bestAction = null;
         double bestValue = Double.NEGATIVE_INFINITY;
         for(Move coup : etat.getMove())
         {
             State nextState = etat.play(coup);
-            double value = this.recherche(nextState, depth);
+            double value = this.recherche(nextState, player,depth);
             if(value > bestValue)
             {
                 bestValue = value;
@@ -44,7 +44,7 @@ public abstract class Algorithm
         return bestAction;
     }
 
-    public abstract double recherche(State etat, int entier);
+    public abstract double recherche(State etat, char player, int entier);
 
 
 

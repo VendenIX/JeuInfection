@@ -301,9 +301,9 @@ public class State {
     }
 
     // on veut le score du player
-    public Double getScore()
+    public Double getScore(char player)
     {
-        if(this.player == 'b')
+        if(player == 'b')
         {
             return (double) this.nbPionBleu/(this.nbPionRouge+this.nbPionBleu);
         }

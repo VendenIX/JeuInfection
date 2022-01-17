@@ -11,11 +11,11 @@ public class Main {
         s.printLegalMove(s.getMove());
         s.printBoard();
         while (!s.isOver() && !repetition){
-            Move coup = a.getBestMove(s, 2);
+            Move coup = a.getBestMove(s,s.getTurn(), 3);
             s = s.play(coup);
             System.out.println(coup);
             s.printBoard();
-            System.out.println("score de "+s.getPlayer()+"  "+s.getScore());
+            System.out.println("score de "+s.getPlayer()+"  "+s.getScore('b'));
             for(State etat: history){
                 if((etat.sameBoard(s.board))&&(etat.getTurn()==s.getTurn())){
                     etat.printBoard();

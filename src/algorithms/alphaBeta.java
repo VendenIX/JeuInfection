@@ -8,22 +8,22 @@ public class AlphaBeta extends Algorithm
         super(depth);
     }
 
-    public double recherche(State etat, int depth)
+    public double recherche(State etat, char player, int depth)
     {
-        return recherche(etat,Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY,depth);
+        return recherche(etat,Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY, player, depth);
     }
-    public double recherche(State etat, double alpha, double beta, int depth)
+    public double recherche(State etat, double alpha, double beta, char player, int depth)
     {
         if(depth == 0 || etat.isOver())
         {
-            return etat.getScore();
+            return etat.getScore(player);
         }
         if(etat.getTurn() == etat.getPlayer())
         {
             for(Move coup : etat.getMove())
             {
                 State nextState = etat.play(coup);
-                double m = this.recherche(nextState, alpha, beta,depth-1);
+                double m = this.recherche(nextState, alpha, beta, player,depth-1);
                 if(alpha < m)
                 {
                     alpha = m;
@@ -40,7 +40,7 @@ public class AlphaBeta extends Algorithm
             for(Move coup : etat.getMove())
             {
                 State nextState = etat.play(coup);
-                double m = this.recherche(nextState, alpha, beta,depth-1);
+                double m = this.recherche(nextState, alpha, beta, player,depth-1);
                 if(beta > m)
                 {
                     beta = m;
