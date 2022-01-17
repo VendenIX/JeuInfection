@@ -1,9 +1,13 @@
 package algorithms;
 import jeu.Move;
 import jeu.State;
-public abstract class minMax extends algorithm
-{                                           // profondeur 
-    public Double recherche(State etat, int depth)
+public class MinMax extends Algorithm
+{   
+    public MinMax(int depth)
+    {
+        super(depth);
+    }
+    public double recherche(State etat, int depth)
     {
         if(depth == 0 || etat.isOver())
         {

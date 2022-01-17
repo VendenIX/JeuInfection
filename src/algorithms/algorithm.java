@@ -9,8 +9,24 @@ import jeu.State;
         depth = profondeur
         m = resultat de la recherche (à 1 profondeur de plus)
  */
-public abstract class algorithm
+public abstract class Algorithm
 {                                         
+    protected int depth;
+    public Algorithm(int depth)
+    {
+        this.depth=depth;
+    }
+
+    public int getDepth()
+    {
+        return depth;
+    }
+
+    public void setDepth(int depth)
+    {
+        this.depth=depth;
+    }
+
     public Move getBestMove(State etat, int depth)
     {
         Move bestAction = null;
@@ -18,7 +34,7 @@ public abstract class algorithm
         for(Move coup : etat.getMove())
         {
             State nextState = etat.play(coup);
-            Double value = recherche(nextState, depth);
+            double value = this.recherche(nextState, depth);
             if(value > bestValue)
             {
                 bestValue = value;
@@ -28,7 +44,7 @@ public abstract class algorithm
         return bestAction;
     }
 
-    public abstract Double recherche(State etat, int entier);
+    public abstract double recherche(State etat, int entier);
 
 
 

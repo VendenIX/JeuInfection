@@ -1,8 +1,17 @@
 package algorithms;
 import jeu.Move;
 import jeu.State;
-public abstract class alphaBeta extends algorithm
-{                                           // profondeur 
+public class AlphaBeta extends Algorithm
+{                                          
+    public AlphaBeta(int depth)
+    {
+        super(depth);
+    }
+
+    public double recherche(State etat, int depth)
+    {
+        return recherche(etat,Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY,depth);
+    }
     public double recherche(State etat, double alpha, double beta, int depth)
     {
         if(depth == 0 || etat.isOver())

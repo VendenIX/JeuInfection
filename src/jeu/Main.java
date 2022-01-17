@@ -4,14 +4,14 @@ import algorithms.*;
 public class Main {
 
     public static void main(String[] args){
-
+        MinMax a = new MinMax(2);
         HashSet<State> history = new HashSet<State>();
         boolean repetition = false;
         State s = new State();
         s.printLegalMove(s.getMove());
         s.printBoard();
         while (!s.isOver() && !repetition){
-            Move coup = s.getRandomMove();
+            Move coup = a.getBestMove(s, 2);
             s = s.play(coup);
             System.out.println(coup);
             s.printBoard();
