@@ -14,7 +14,7 @@ public class MinMax extends Algorithm
             return etat.getScore(player);
         }
         double b;
-        if(etat.getTurn() == etat.getPlayer())
+        if(etat.getTurn() == player)
         {
             b = Double.NEGATIVE_INFINITY;
             for(Move coup : etat.getMove())

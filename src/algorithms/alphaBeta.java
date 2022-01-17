@@ -18,7 +18,7 @@ public class AlphaBeta extends Algorithm
         {
             return etat.getScore(player);
         }
-        if(etat.getTurn() == etat.getPlayer())
+        if(etat.getTurn() == player)
         {
             for(Move coup : etat.getMove())
             {

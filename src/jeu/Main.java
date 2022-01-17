@@ -15,7 +15,7 @@ public class Main {
             s = s.play(coup);
             System.out.println(coup);
             s.printBoard();
-            System.out.println("score de "+s.getPlayer()+"  "+s.getScore('b'));
+            System.out.println("Score des "+s.getPlayer()+":  "+s.getScore('b')+"\nTour: "+s.getNbTurn());
             for(State etat: history){
                 if((etat.sameBoard(s.board))&&(etat.getTurn()==s.getTurn())){
                     etat.printBoard();

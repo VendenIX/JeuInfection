@@ -9,6 +9,7 @@ public class State {
     private char player;
     public int nbPionRouge;
     public int nbPionBleu;
+    private int nbTurn;
 
     /*Construtceur pour initialiser le board */
     public State(){
@@ -20,16 +21,18 @@ public class State {
         this.nbPionRouge = 2;
         this.nbPionBleu = 2;
         this.turn = 'b';
+        this.nbTurn = 0;
         this.player= 'b';
 
     }
     /*Constructeur pour jouer les coups */
-    public State(int pionBleu,int pionRouge,char[][] board,char turn,char player){
+    public State(int pionBleu,int pionRouge,char[][] board,char turn,char player, int nbTurn){
         this.nbPionBleu = pionBleu;
         this.nbPionRouge = pionRouge;
         this.board = board;
         this.turn = turn;
         this.player = player;
+        this.nbTurn = nbTurn;
 
     }
 
@@ -38,6 +41,11 @@ public class State {
     }
     public char getTurn(){
         return this.turn;
+    }
+
+    public int getNbTurn()
+    {
+        return this.nbTurn;
     }
     public void changeTurn(){
         if (this.turn == 'r'){
@@ -115,76 +123,6 @@ public class State {
         }
         return null;
     }
-/*//Tester 8 fois avec des if si on peut se déplacer dans la case avec un clonage
-    public void ClonageSearch(HashSet<Move> legalMove,int i , int j)
-    {
-        int[] posDepart={i,j}
-        int[] posArrivee;
-        if(i>=1)
-        {
-            if(j>0)
-            {
-                // on part du postulat que . = case vide
-                if(this.board[i-1][j-1] == '.')
-                {
-                    posArrivee={i-1,j-1};
-                    legalMove.add(new Move(posDepart,posArrivee,false));
-                }
-                if(this.board[][j] == '.')
-                {
-
-                }
-            }
-
-            if(j<6)
-            {
-                if(this.board[][] == '.')
-                {
-
-                }
-                if(this.board[][] == '.')
-                {
-
-                }
-            }
-
-            if(i<6)
-            {
-                if(j>0)
-                {
-                    if(this.board[][] == '.')
-                    {
-    
-                    }
-                    if(this.board[][] == '.')
-                    {
-    
-                    }
-                }
-
-                if(j<6)
-                {
-                    if(this.board[][] == '.')
-                    {
-    
-                    }
-                    if(this.board[][] == '.')
-                    {
-    
-                    }
-
-                }
-            }
-
-        }
-
-    }
-//Tester 8 fois avec des if si on peut se déplacer dans la case avec un saut
-    public void JumpSearch(HashSet<Move> legalMove)
-    {
-
-    }
-    */
     public HashSet<Move> getMove(){
         HashSet<Move> legalMove = new HashSet<Move>();
             /*Parcours de toutes les cases du plateau */
@@ -273,7 +211,7 @@ public class State {
     }
 
     public State play(Move coup){
-        State newState = new State(this.nbPionBleu,this.nbPionRouge,this.copieTableau(),this.turn,this.player);
+        State newState = new State(this.nbPionBleu,this.nbPionRouge,this.copieTableau(),this.turn,this.player,this.nbTurn+1);
 
         /** Si c'est un saut on retire le pion de sa case */
         if (coup != null){
