@@ -35,7 +35,6 @@ public class State {
         this.nbTurn = nbTurn;
 
     }
-
     public char getPlayer(){
         return this.player;
     }
@@ -115,7 +114,6 @@ public class State {
         int num = rand.nextInt(ensembleCoup.size());
         int i = 0;
         for(Move coup: ensembleCoup){
-
             if (i == num){
                 return coup;
             }
@@ -133,20 +131,12 @@ public class State {
                         for (int k = -1; k<2;k++){
                             for (int l = -1;l<2;l++){
                                 /* on regarde si les coordonnées existent pour les clonages*/
-                                if ((0<=(i+k) && (i+k)<=6) && (0<=(j+l) && (j+l)<=6)){
-                                    if (this.board[i+k][j+l]== '\0'){/*\0 est équivalent au charactère null c'est une case vide du plateau */
-                                        int [] posDepart = {i,j};
-                                        int[] posArrivee = {i+k,j+l};
-                                        legalMove.add(new Move(posDepart,posArrivee,false));
-                                    }
+                                if (this.isLegalDuplicate(i, j, k, l)){
+                                    legalMove.add(new Move(i,j,i+k,j+l,false));
                                 }
                                 /* on regarde si les coordonnées existent pour les sauts*/
-                                if ((0<=(i+k*2) && (i+k*2)<=6) && (0<=(j+l*2) && (j+l*2)<=6)){
-                                    if (this.board[i+k*2][j+l*2]=='\0'){
-                                        int [] posDepart = {i,j};
-                                        int [] posArrivee = {i+k*2,j+l*2};
-                                        legalMove.add(new Move(posDepart,posArrivee,true));
-                                    }
+                                if (this.isLegalJump(i, j, k*2, l*2)){
+                                    legalMove.add(new Move(i,j,i+k*2,j+l*2,true));
                                 }
                             }
                         }
@@ -155,6 +145,44 @@ public class State {
             }
         
         return legalMove;
+    }
+    /**
+     * Vérifie si le coup de saut est légal
+     * @param i position x du deplacement du pion 
+     * @param j position y du deplacement du pion 
+     * @param k position x du deplacement du pion
+     * @param l position y du deplacement du pion
+     * @requires k à distance de saut c'est à dire -2 ou 2
+     * @requires l à distance de saut c'est à dire -2 ou 2
+     * @return True si le coup est legal False si le coup est illegal
+     */
+    public boolean isLegalJump(int i,int j, int k , int l){
+        if ((0<=(i+k) && (i+k)<=6) && (0<=(j+l) && (j+l)<=6)){
+            if (this.board[i+k][j+l]=='\0'){/*\0 est équivalent au charactère null c'est une case vide du plateau */
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Vérifie si le coup de duplication est légalsaut
+saut
+saut
+     * @param i position x d'origine du pion 
+     * @param j position y d'origine du pion 
+     * @param k position x de destination du pion
+     * @param l position y de destination du pion
+     * @requires k à distance de duplication c'est à dire -1 ou 1
+     * @requires l à distance de duplication c'est à dire -1 ou 1
+     * @return True si le coup est legal False si le coup est illegal
+     */
+    public boolean isLegalDuplicate(int i,int j, int k , int l){
+        if ((0<=(i+k) && (i+k)<=6) && (0<=(j+l) && (j+l)<=6)){
+            if (this.board[i+k][j+l]=='\0'){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void printLegalMove(HashSet<Move> legalMove){

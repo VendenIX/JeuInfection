@@ -8,9 +8,9 @@ public class AlphaBeta extends Algorithm
         super(depth);
     }
 
-    public double recherche(State etat, char player, int depth)
+    public double recherche(State etat, char player)
     {
-        return recherche(etat,Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY, player, depth);
+        return recherche(etat,Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY, player, this.depth);
     }
     public double recherche(State etat, double alpha, double beta, char player, int depth)
     {

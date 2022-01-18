@@ -7,6 +7,9 @@ public class MinMax extends Algorithm
     {
         super(depth);
     }
+    public double recherche(State etat,char player){
+        return this.recherche(etat, player,this.depth);
+    }
     public double recherche(State etat, char player, int depth)
     {
         if(depth == 0 || etat.isOver())
