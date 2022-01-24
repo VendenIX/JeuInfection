@@ -10,6 +10,8 @@ public class Main {
         State s = new State();
         s.printLegalMove(s.getMove());
         s.printBoard();
+        long startTime = System.nanoTime();
+        
         while (!s.isOver() && !repetition){
             Move coup = a.getBestMove(s,s.getTurn());
             s = s.play(coup);
@@ -25,7 +27,8 @@ public class Main {
             }
             history.add(s);
         }
-
+        long stopTime = System.nanoTime();
+        System.out.println((stopTime - startTime)/1000000000 + " seconds");
         } 
         
     }

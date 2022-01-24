@@ -123,6 +123,7 @@ public class State {
     }
     public HashSet<Move> getMove(){
         HashSet<Move> legalMove = new HashSet<Move>();
+        HashSet<Move> legalDup = new HashSet<Move>();
             /*Parcours de toutes les cases du plateau */
             for(int i = 0; i<7;i++){
                 for(int j = 0;j<7;j++){
@@ -132,7 +133,7 @@ public class State {
                             for (int l = -1;l<2;l++){
                                 /* on regarde si les coordonnées existent pour les clonages*/
                                 if (this.isLegalDuplicate(i, j, k, l)){
-                                    legalMove.add(new Move(i,j,i+k,j+l,false));
+                                    legalDup.add(new Move(i,j,i+k,j+l,false));
                                 }
                                 /* on regarde si les coordonnées existent pour les sauts*/
                                 if (this.isLegalJump(i, j, k*2, l*2)){
@@ -143,7 +144,8 @@ public class State {
                     }
                 }
             }
-        
+        legalDup = this.supprimeDoublon(legalDup);
+        legalMove.addAll(legalDup);
         return legalMove;
     }
     /**
@@ -183,6 +185,23 @@ saut
             }
         }
         return false;
+    }
+
+    public HashSet<Move> supprimeDoublon(HashSet<Move> ensembleCoup){
+        HashSet<Move> res = new HashSet<>();
+        boolean same = false;
+        for (Move coup : ensembleCoup){
+            same = false;
+            for(Move coupbis : res){
+                if (coupbis.isSameDuplication(coup)){
+                    same = true;
+                }
+            }
+            if (!same){
+                res.add(coup);
+            }
+        }
+        return res;
     }
 
     public void printLegalMove(HashSet<Move> legalMove){
@@ -261,8 +280,6 @@ saut
         }
 
         newState.changeTurn();
-
-
         return newState;
     }
 

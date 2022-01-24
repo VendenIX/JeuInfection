@@ -20,6 +20,12 @@ public class Move{
         this.jump = jump;
     }
 
+    public boolean isSameDuplication(Move coup){
+        if ((this.end[0]==coup.end[0])&&(this.end[1]==this.end[1])&&(!this.jump)&&(!coup.jump)){
+            return true;
+        }
+        return false;
+    }
     public String toString(){
         return "Move from " + this.start[0] + ","+ this.start[1] + " to " + this.end[0]+","+this.end[1] + " by jumping " + this.jump;
     }
