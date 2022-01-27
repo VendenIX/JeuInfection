@@ -1,4 +1,5 @@
 package jeu;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -40,6 +41,14 @@ public class State {
     }
     public char getTurn(){
         return this.turn;
+    }
+    public char getOppositeColor(){
+        if(this.turn == 'b'){
+            return 'r';
+        }
+        else{
+            return 'b';
+        }
     }
 
     public int getNbTurn()
@@ -187,7 +196,78 @@ saut
         return false;
     }
 
+    /**
+     * Fonction qui détermine si le coup coup infecterait la couleur color
+     * @param coup Move 
+     * @param color char couleur à infecter
+     * @return true si lorsque que le coup sera joué il y aura infection false autrement
+     */
+    public boolean isInfectionMove(Move coup, char color){
+        return this.isInfectionMove(coup.end[0],coup.end[1], color);
+    }
+    /**
+     * Fonction qui détermine si la case i,j infecterait la couleur color
+     * @param i coord x de la case d'arrivee
+     * @param j coord y de la case d'arrivee
+     * @param color char couleur à infecter
+     * @return true si lorsque que la case sera prise il y aura infection false autrement
+     */
+    public boolean isInfectionMove(int i,int j,char color){
+        for (int k = -1; k<2;k++){
+            for (int l = -1;l<2;l++){
+                if ((0<=(i+k) && (i+k)<=6) && (0<=(j+l) && (j+l)<=6)){
+                    if (this.board[i+k][j+l] == color){ /**Si la couleur de l'adversaire est détectée alors on infecte la cases  */
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+        
+    }
+    /**
+     * Algo de tri pour obtenir un array où les premiers coups sont ceux qui capturent des pions ennemis de couleur color
+     * @param ensembleCoup
+     * @param color char couleur des pions du joueur
+     * @return arrayList trié des coups avec ceux qui capturent en premier
+     */
+    public ArrayList<Move> triInfection(HashSet<Move> ensembleCoup,char color){
+        ArrayList<Move> res = new ArrayList<Move>();
+        ArrayList<Move> resteMoves = new ArrayList<Move>();
+        if(color == 'b'){
+            for(Move coup:ensembleCoup){
+                if(this.isInfectionMove(coup, 'r')){
+                    res.add(coup);
+                }
+                else{
+                    resteMoves.add(coup);
+                }
+            }
+        res.addAll(resteMoves);
+        }
+        else{
+            for(Move coup:ensembleCoup){
+                if(this.isInfectionMove(coup, 'b')){
+                    res.add(coup);
+                }
+                else{
+                    resteMoves.add(coup);
+                }
+            }
+        res.addAll(resteMoves);
+        }
+        System.out.println("element trie = " + res.size() + "à partir de" + ensembleCoup.size());
+
+        return res;
+    }
+    /**
+     * Prends un Hashset de Move et les compare afin de retourner un set de move tous différent
+     * @param ensembleCoup HashSet de Move
+     * @requires ensembleCoup != null
+     * @ensures res != None
+     */
     public HashSet<Move> supprimeDoublon(HashSet<Move> ensembleCoup){
+
         HashSet<Move> res = new HashSet<>();
         boolean same = false;
         for (Move coup : ensembleCoup){
@@ -209,7 +289,11 @@ saut
             System.out.println(move);
         }
     }
-
+    public void printLegalMove(ArrayList<Move> legalMove){
+        for(int i = 0;i<legalMove.size();i++){
+            System.out.println(legalMove.get(i));
+        }
+    }
     public void printBoard(){
         System.out.println("State's board :");
         for(int i = 0;i < this.board.length;i++){
