@@ -157,6 +157,15 @@ public class State {
         legalMove.addAll(legalDup);
         return legalMove;
     }
+
+    /**
+     * Fonction qui retourne un ArrayList des coups légaux triés selon s'ils infectent des pions ou non
+     * @return ArrayList des moves legaux
+     */
+    public ArrayList<Move> getArrayMove(){
+        HashSet<Move> ensMoves = getMove();
+        return this.triInfection(ensMoves, this.turn);
+    }
     /**
      * Vérifie si le coup de saut est légal
      * @param i position x du deplacement du pion 
@@ -256,8 +265,6 @@ saut
             }
         res.addAll(resteMoves);
         }
-        System.out.println("element trie = " + res.size() + "à partir de" + ensembleCoup.size());
-
         return res;
     }
     /**

@@ -11,7 +11,7 @@ public class TestTrie {
         long startTime = System.nanoTime();
         
         while (!s.isOver() && !repetition){
-            Move coup = a.getBestMove(s,s.getTurn());
+            Move coup = a.getBestMoveArray(s,s.getTurn());
             System.out.println("coup choisi"+coup);
             s = s.play(coup);
             System.out.println("Score des "+s.getPlayer()+":  "+s.getScore('b')+"\nTour: "+s.getNbTurn());
