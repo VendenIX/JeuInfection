@@ -12,14 +12,20 @@ import jeu.State;
 public abstract class Algorithm
 {                                         
     protected int depth;
+    protected int visitedNodes;
     public Algorithm(int depth)
     {
         this.depth=depth;
+        this.visitedNodes = 0;
     }
 
     public int getDepth()
     {
         return depth;
+    }
+
+    public int getVisitedNodes(){
+        return this.visitedNodes;
     }
 
     public void setDepth(int depth)

@@ -22,6 +22,7 @@ public class MinMax extends Algorithm
             b = Double.NEGATIVE_INFINITY;
             for(Move coup : etat.getMove())
             {
+                super.visitedNodes++;
                 State nextEtat = etat.play(coup);
                 double m = this.recherche(nextEtat, player ,depth-1);
                 if(b < m)
@@ -35,6 +36,7 @@ public class MinMax extends Algorithm
             b = Double.POSITIVE_INFINITY;
             for(Move coup : etat.getMove())
             {
+                super.visitedNodes++;
                 State nextEtat = etat.play(coup);
                 double m = this.recherche(nextEtat, player ,depth-1);
                 if(b > m)

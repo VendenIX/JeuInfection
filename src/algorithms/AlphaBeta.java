@@ -23,6 +23,7 @@ public class AlphaBeta extends Algorithm
         {
             for(Move coup : etat.getMove())
             {
+                super.visitedNodes++;
                 State nextState = etat.play(coup);
                 double m = this.recherche(nextState, alpha, beta, player,depth-1);
                 if(alpha < m)
@@ -40,6 +41,7 @@ public class AlphaBeta extends Algorithm
         {
             for(Move coup : etat.getMove())
             {
+                super.visitedNodes++;
                 State nextState = etat.play(coup);
                 double m = this.recherche(nextState, alpha, beta, player,depth-1);
                 if(beta > m)
@@ -71,6 +73,7 @@ public class AlphaBeta extends Algorithm
             ArrayList<Move> coup = etat.getArrayMove();
             for(int i = 0;i<coup.size();i++)
             {
+                super.visitedNodes++;
                 State nextState = etat.play(coup.get(i));
                 double m = this.recherche(nextState, alpha, beta, player,depth-1);
                 if(alpha < m)
@@ -89,6 +92,7 @@ public class AlphaBeta extends Algorithm
             ArrayList<Move> coup = etat.getArrayMove();
             for(int i = 0;i<coup.size();i++)
             {
+                super.visitedNodes++;
                 State nextState = etat.play(coup.get(i));
                 double m = this.recherche(nextState, alpha, beta, player,depth-1);
                 if(beta > m)

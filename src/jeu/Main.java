@@ -10,7 +10,6 @@ public class Main {
     public static void main(String[] args){
         if(args.length!=3){
             throw new IllegalArgumentException("Il faut 3 arguments pour lancer la méthode main");
-            
         }
         Algorithm aBleu,aRouge;
         if(args[2]=="true"){
