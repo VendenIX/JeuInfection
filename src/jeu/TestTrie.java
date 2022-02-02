@@ -3,7 +3,7 @@ import java.util.HashSet;
 import algorithms.*;
 public class TestTrie {
     public static void main(String[] args) {
-        AlphaBeta a = new AlphaBeta(4);
+        AlphaBeta a = new AlphaBeta(6);
         HashSet<State> history = new HashSet<State>();
         boolean repetition = false;
         State s = new State();
