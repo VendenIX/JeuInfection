@@ -34,6 +34,4 @@ pions de la couleur du joueur actif. Après cela, c’est au joueur suivant de j
 ##Version sur console##
 Taper les commandes suivantes dans un cmd: (se placer dans le repertoire où se situe le fichier readMe.txt)
 javac -d bin src/jeu/*.java
-java -cp bin jeu.Main
-
-Ou lancer le script avec sh script.sh
+java -cp bin jeu.Main arg1 arg2 arg3

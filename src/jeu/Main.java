@@ -48,7 +48,8 @@ public class Main {
             history.add(s);
         }
         long stopTime = System.nanoTime();
-        System.out.println((stopTime - startTime)/1000000000 + " seconds");
+        System.out.println((stopTime - startTime)/1000000000 + " seconds\n");
+        System.out.println(aBleu.getVisitedNodes()+ " Noeuds visités par les bleus\n"+aRouge.getVisitedNodes()+" Noeuds visités par les rouges");
         } 
         
     }
