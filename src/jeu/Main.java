@@ -12,14 +12,21 @@ public class Main {
             throw new IllegalArgumentException("Il faut 3 arguments pour lancer la méthode main");
         }
         Algorithm aBleu,aRouge;
-        if(args[2]=="true"){
+        if(args[2].equals("true")){
+            System.out.println("YOYOYOYOYOYYO");
+            
             aBleu = new AlphaBeta(Integer.parseInt(args[0]));
             aRouge = new AlphaBeta(Integer.parseInt(args[1]));
+            
         }
         else{
+            System.out.println("YAYAYAYA");
+            
             aBleu = new MinMax(Integer.parseInt(args[0]));
             aRouge = new MinMax(Integer.parseInt(args[1]));
+            
         }
+
         HashSet<State> history = new HashSet<State>();
         boolean repetition = false;
         State s = new State();

@@ -13,6 +13,7 @@ public abstract class Algorithm
 {                                         
     protected int depth;
     protected int visitedNodes;
+
     public Algorithm(int depth)
     {
         this.depth=depth;
@@ -51,7 +52,4 @@ public abstract class Algorithm
     }
 
     public abstract double recherche(State etat, char player);
-
-
-
 }
