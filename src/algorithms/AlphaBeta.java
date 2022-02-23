@@ -108,6 +108,13 @@ public class AlphaBeta extends Algorithm
         }
     }
 
+    /**
+     * Fonction qui recherche le meilleur coup en utilisant un array ordonné
+     * @param etat
+     * @param player
+     * @return Move meilleur coup
+     */
+
     public Move getBestMoveArray(State etat, char player)
     {
         Move bestAction = null;

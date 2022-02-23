@@ -89,6 +89,10 @@ public class State {
         }
         return true;
     }
+    /**
+     * Augmente le nombre de pion du joueur color
+     * @param color char couleur du joueur
+     */
     public void increaseNumberPawns(char color){
         if (color == 'b'){
             this.nbPionBleu++;
@@ -97,13 +101,17 @@ public class State {
             this.nbPionRouge++;
         }
     }
+
     public boolean isOver(){
         if ((this.nbPionRouge == 0)|| (this.nbPionBleu == 0)){
             return true;
         }
         return false;
     }
-
+    /**
+     * Diminue le nombre de pion du joueur color
+     * @param color char couleur du joueur
+     */
     public void decreaseNumberPawns(char color){
         if (color == 'b'){
             this.nbPionBleu--;
@@ -113,8 +121,9 @@ public class State {
         }
     }
 
+    /** Renvoie un coup légal aléatoire */
     public Move getRandomMove(){
-        /** Renvoie un coup légal aléatoire */
+        
         HashSet<Move> ensembleCoup = this.getMove();
         if (ensembleCoup.isEmpty()){
             return null;
@@ -130,6 +139,10 @@ public class State {
         }
         return null;
     }
+    /**
+     * Fonction qui retourne tous les coups légaux dans la position
+     * @return Hashset de Move
+     */
     public HashSet<Move> getMove(){
         HashSet<Move> legalMove = new HashSet<Move>();
         HashSet<Move> legalDup = new HashSet<Move>();
@@ -212,7 +225,7 @@ saut
      * @return true si lorsque que le coup sera joué il y aura infection false autrement
      */
     public boolean isInfectionMove(Move coup, char color){
-        return this.isInfectionMove(coup.end[0],coup.end[1], color);
+        return this.isInfectionMove(coup.getEnd()[0],coup.getEnd()[1], color);
     }
     /**
      * Fonction qui détermine si la case i,j infecterait la couleur color
@@ -315,11 +328,12 @@ saut
             System.out.println('\n');
         }
     }
-
-    public void infection(int[] cases,char color){
-        /**Toutes les casess adjacentes à cases de couleur color changeront de couleur
-        @params cases : cases à l'origine de l'infection, color : charactère de la couleur infectable
+        /**Toutes les cases adjacentes à cases de couleur color changeront de couleur
+        @params cases : cases à l'origine de l'infection
+        @params color : charactère de la couleur infectable
          */
+    public void infection(int[] cases,char color){
+
         if (color == 'r'){
             for (int k = -1; k<2;k++){
                 for (int l = -1;l<2;l++){
@@ -347,25 +361,29 @@ saut
             }
         }
     }
-
+    /**
+     * Fonction qui retourne un nouvel état après avoir joué le coup 
+     * @param coup move
+     * @return nouvelEtat : State
+     */
     public State play(Move coup){
         State newState = new State(this.nbPionBleu,this.nbPionRouge,this.copieTableau(),this.turn,this.player,this.nbTurn+1);
 
         /** Si c'est un saut on retire le pion de sa case */
         if (coup != null){
-            if (coup.jump){
-                newState.board[coup.start[0]][coup.start[1]]='\0';
+            if (coup.getJump()){
+                newState.board[coup.getStart()[0]][coup.getStart()[1]]='\0';
                 newState.decreaseNumberPawns(newState.getTurn());
             }
-            newState.board[coup.end[0]][coup.end[1]] = newState.getTurn();
+            newState.board[coup.getEnd()[0]][coup.getEnd()[1]] = newState.getTurn();
             newState.increaseNumberPawns(newState.getTurn());
             if (newState.getTurn() == 'r'){
-                int [] posArrivee = {coup.end[0],coup.end[1]};
+                int [] posArrivee = {coup.getEnd()[0],coup.getEnd()[1]};
                 newState.infection(posArrivee,'b');
             }
             else
             {
-                int [] posArrivee = {coup.end[0],coup.end[1]};
+                int [] posArrivee = {coup.getEnd()[0],coup.getEnd()[1]};
                 newState.infection(posArrivee,'r');
             }
         }
@@ -374,7 +392,12 @@ saut
         return newState;
     }
 
-    // on veut le score du player
+    /**
+     * Fonction qui calcule le score du joueur donné en paramètre
+     * @param player char couleur du joueur
+     * @require player = 'b' || player = 'r'
+     * @return Double score du joueur
+     */
     public Double getScore(char player)
     {
         if(player == 'b')
