@@ -1,11 +1,11 @@
-Projet réalisé par Harrisson Kobylt, Antoine Lemaitre, Romain Andres.
+Projet réalisé par Harrisson Kobylt 21801486, Antoine Lemaitre 22005471, Romain Andres 21904263.
 
 Il s'agit d'un jeu de contamination sur grille de 7 par 7 jouable à 2 en 1  versus 1.
 
 
 
 
-#####Règles du jeu repris de l'énnoncé#####
+#####Règles du jeu repris de l'énoncé#####
 
 Soit une grille vide de 7 × 7 cases et deux joueurs, Rouge et Bleu. Chaque joueur débute la
 partie avec deux pions de sa couleur, respectivement en bas à gauche et haut à droite pour
@@ -31,7 +31,7 @@ pions de la couleur du joueur actif. Après cela, c’est au joueur suivant de j
 
 #####Comment lancer le jeu ?#####
 
-##Version sur console##
+##Version en console##
 Taper les commandes suivantes dans un cmd: (se placer dans le repertoire où se situe le fichier readMe.txt)
-javac -d bin src/jeu/*.java
+javac -d bin src/jeu/*.java src/algorithms/*.java
 java -cp bin jeu.Main arg1 arg2 arg3

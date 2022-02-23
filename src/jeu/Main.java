@@ -13,15 +13,11 @@ public class Main {
         }
         Algorithm aBleu,aRouge;
         if(args[2].equals("true")){
-            System.out.println("YOYOYOYOYOYYO");
-            
             aBleu = new AlphaBeta(Integer.parseInt(args[0]));
             aRouge = new AlphaBeta(Integer.parseInt(args[1]));
             
         }
         else{
-            System.out.println("YAYAYAYA");
-            
             aBleu = new MinMax(Integer.parseInt(args[0]));
             aRouge = new MinMax(Integer.parseInt(args[1]));
             
@@ -39,8 +35,6 @@ public class Main {
             else{
                 coup = aRouge.getBestMove(s, s.getTurn());
             }
-
-            
             s = s.play(coup);
             System.out.println(coup);
             s.printBoard();
