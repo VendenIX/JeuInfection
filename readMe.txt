@@ -1,4 +1,4 @@
-Projet réalisé par Harrisson Kobylt 21801486, Antoine Lemaitre 22005471, Romain Andres 21904263.
+Projet réalisé par Harrisson Kobylt (https://github.com/HarryyKk) , Antoine Lemaitre  (https://github.com/aa2727) , Romain Andres (https://github.com/VendenIX/)
 
 Il s'agit d'un jeu de contamination sur grille de 7 par 7 jouable à 2 en 1  versus 1.
 
